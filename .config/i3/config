@@ -20,8 +20,9 @@ exec --no-startup-id nm-applet
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
+#set $refresh_i3status killall -SIGUSR1 xmobar
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +1% && $refresh_i3status
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -1% && $refresh_i3status
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 
@@ -116,6 +117,9 @@ set $ws8 "8"
 set $ws9 "9: code assisting"
 set $ws10 "10: code editors"
 
+set $monitor_primary "eDP1"
+set $monitor_secondary "HDMI-1-0"
+
 # switch to workspace
 bindsym $mod+1 workspace number $ws1
 bindsym $mod+2 workspace number $ws2
@@ -150,8 +154,24 @@ assign [class="QtCreator"] workspace $ws10
 assign [class="tm"] workspace $ws5
 assign [class="pr"] workspace $ws5
 assign [class="pm"] workspace $ws5
-
 #assign [class="GigaQt"] workspace $ws9
+
+
+#monitors
+workspace $ws1 output $monitor_primary
+workspace $ws2 output $monitor_secondary
+workspace $ws3 output $monitor_primary
+# workspace $ws4 output $monitor_primary
+workspace $ws5 output $monitor_primary
+workspace $ws6 output $monitor_secondary
+workspace $ws7 output $monitor_secondary
+workspace $ws8 output $monitor_secondary
+workspace $ws9 output $monitor_secondary
+workspace $ws10 output $monitor_primary
+
+# move workspaces
+bindsym $mod+Shift+less move workspace to output $monitor_secondary 
+bindsym $mod+Shift+greater move workspace to output $monitor_primary
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -188,8 +208,7 @@ mode "resize" {
         bindsym $mod+r mode "default"
 }
 
-set $ModeName "exit: [e]xit [Enter], [r]eboot, [s]hutdown, shudown [n]ow"
-# , restar[t]-i3" 
+set $ModeName "[e]xit [Enter] | [r]eboot | [s]hutdown | shudown [n]ow | [h]ibernate" 
 
 mode $ModeName{
 	bindsym Return exec i3-msg exit
@@ -199,6 +218,7 @@ mode $ModeName{
 	bindsym n exec shutdown +0
 #	bindsym t exec "i3-msg exit && startx"
 	bindsym Escape mode "default"	
+	bindsym h exec systemctl hibernate
 }
 
 # modes
@@ -209,6 +229,7 @@ bindsym $mod+Shift+e mode $ModeName
 #Start i3bar to display a workspace bar (plus the system information i3status finds out, if available)
 bar {
         status_command i3status
+#	status_command xmobar
 	position bottom
 	font pango:DejaVu Sans Mono 11
 }
@@ -216,14 +237,24 @@ bar {
 default_border pixel 3
 
 # started upon launching
+
+# monito settings
+exec xrandr --setprovideroutputsource NVIDIA-G0 Intel
+exec ~/.screenlayout/doublemonitor.layout.sh
+
+#disable integrated keyboard input
+exec kboff 
+#switch keyboard colors
+exec openrgb --color "00FFFF"
+
 exec $terminal
 exec $terminal 
 exec microsoft-edge-dev
 #exec telegram-desktop
 #exec discord
-exec qtcreator
+#exec qtcreator
 #exec doublecmd
-exec_always feh --bg-fill ~/wallpaper/1f1e33.jpg
+exec_always feh --bg-fill ~/wallpaper/october2023.png
 exec_always setxkbmap -layout us,ru -option grp:alt_shift_toggle
 exec_always ~/.screenlayout/fullscreen.sh
 exec_always xset r rate 333 25

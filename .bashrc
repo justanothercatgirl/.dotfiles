@@ -6,6 +6,15 @@ alias psiphon="psiphon-console-client"
 alias cppreference="microsoft-edge-dev /usr/share/doc/cppreference/en/cpp.html"
 alias nv=nvim
 alias whatsapp=whatsie
+alias lan="bash zerotierconnect.sh"
+
+export c="/mnt/C"
+export d="/mnt/D"
+
+function swap() { mv "$1" "$1._tmp" && mv "$2" "$1" && mv "$1._tmp" "$2"; }
+
+function kboff() { xinput float 22; }
+function kbon() { xinput reattach 22 3; }
 
 # dotfiles
 alias config='/usr/bin/git --git-dir=$HOME/.cfg --work-tree=$HOME'

@@ -17,9 +17,13 @@ Plug 'https://github.com/tpope/vim-commentary'		" comment and uncomment
 Plug 'https://github.com/rafi/awesome-vim-colorschemes'	" themes, basically
 Plug 'https://github.com/ryanoasis/vim-devicons'	" icons for some plugins?????
 Plug 'https://github.com/terryma/vim-multiple-cursors'	" this is gonna be tough to learn...
-Plug 'ycm-core/YouCompleteMe'	" autocompletion (REQUIRES PYTHON3 VENV)
+" Plug 'ycm-core/YouCompleteMe'	" autocompletion (REQUIRES PYTHON3 VENV)
+Plug 'neoclide/coc.nvim', {'branch': 'release'}		" Language-server
+
+cmap w!! w !sudo tee % > /dev/null
 
 nnoremap <C-f> :NERDTreeFocus<CR>
+
 
 call plug#end()
 
