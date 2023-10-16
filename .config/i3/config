@@ -53,9 +53,14 @@ bindsym $mod+l focus up
 bindsym $mod+semicolon focus right
 
 #screenshots
-bindsym Print exec coreshot -f
-bindsym $mod+Print exec coreshot -s
-bindsym $mod+Shift+Print exec coreshot -w
+# OLD SETTINGS 
+# bindsym Print exec coreshot -f
+# bindsym $mod+Print exec coreshot -s
+# bindsym $mod+Shift+Print exec coreshot -w
+
+bindsym Print exec maim ~/Screenshots/screenshot-$(date +"%Y-%m-%dT%H:%M:%S").png
+bindsym $mod+Print exec maim -s ~/Screenshots/screenshot-$(date +"%Y-%m-%dT%H:%M:%S").png
+bindsym $mod+Shift+Print exec maim -i $(xdotool getactivewindow) ~/screenshot-$(date +"%Y-%m-%dT%H:%M:%S").png
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
