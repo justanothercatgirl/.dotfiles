@@ -26,6 +26,9 @@ bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 
+bindsym $mod+b exec sudo systemctl start bluetooth.service
+bindsym $mod+Shift+b exec sudo systemctl stop bluetoth.service
+
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
@@ -118,7 +121,7 @@ set $ws4 "4: file manager"
 set $ws5 "5: office"
 set $ws6 "6"
 set $ws7 "7"
-set $ws8 "8"
+set $ws8 "8: media player"
 set $ws9 "9: code assisting"
 set $ws10 "10: code editors"
 
@@ -155,10 +158,13 @@ assign [class="discord"] workspace $ws3
 assign [class="TelegramDesktop"] workspace $ws3
 assign [class="fm"] workspace $ws4
 assign [class="Double Commander"] workspace $ws4
+assign [class="org.gnome.Nautilus"] workspace $ws4
 assign [class="QtCreator"] workspace $ws10
 assign [class="tm"] workspace $ws5
 assign [class="pr"] workspace $ws5
 assign [class="pm"] workspace $ws5
+assign [class="vlc"] workspace $ws8
+assign [class="libreoffice"] workspace $ws5
 #assign [class="GigaQt"] workspace $ws9
 
 
@@ -247,9 +253,10 @@ default_border pixel 3
 exec xrandr --setprovideroutputsource NVIDIA-G0 Intel
 exec ~/.screenlayout/doublemonitor.layout.sh
 
-#disable integrated keyboard input
+# disable integrated keyboard input
+# please, just work (check out that function in bashrc lmao)
 exec kboff 
-#switch keyboard colors
+# switch keyboard colors
 exec openrgb --color "00FFFF"
 
 exec $terminal
@@ -268,6 +275,3 @@ exec_always xset r rate 333 25
 
 
 # empty lines at the EOF
-
-
-
