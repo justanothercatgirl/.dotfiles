@@ -66,9 +66,12 @@ bindsym $mod+semicolon focus right
 # bindsym $mod+Print exec coreshot -s
 # bindsym $mod+Shift+Print exec coreshot -w
 
-bindsym Print exec maim ~/Screenshots/screenshot-$(date +"%Y-%m-%dT%H:%M:%S").png
-bindsym $mod+Print exec maim -s ~/Screenshots/screenshot-$(date +"%Y-%m-%dT%H:%M:%S").png
-bindsym $mod+Shift+Print exec maim -i $(xdotool getactivewindow) ~/screenshot-$(date +"%Y-%m-%dT%H:%M:%S").png
+set $maim maim --tolerance=1 --quiet 
+#--color="56,200,200,69"
+set $maim_paste tee ~/Screenshots/screenshot-$(date +"%Y-%m-%dT%H:%M:%S").png | xclip -selection clipboard -t image/png
+bindsym Print exec $maim | $maim_paste
+bindsym $mod+Print exec $maim -s | $maim_paste
+bindsym $mod+Shift+Print exec $maim -i $(xdotool getactivewindow) | $maim_paste
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -257,12 +260,12 @@ default_border pixel 3
 # started upon launching
 
 # monito settings
-exec xrandr --setprovideroutputsource NVIDIA-G0 Intel
-exec ~/.screenlayout/doublemonitor.layout.sh
+exec --setprovideroutputsource NVIDIA-G0 Intel
+exec_always ~/.screenlayout/doublemonitor.layout.sh
 
 # disable integrated keyboard input
 # please, just work (check out that function in bashrc lmao)
-exec kboff 
+exec_always kboff 
 # switch keyboard colors
 exec openrgb --color "00FFFF"
 
@@ -273,7 +276,7 @@ exec microsoft-edge-dev
 #exec discord
 #exec qtcreator
 #exec doublecmd
-exec_always feh --bg-fill ~/wallpaper/nov2023.png
+exec_always feh --bg-fill ~/wallpaper/dec2023.png
 exec_always setxkbmap -layout us,ru -option grp:alt_shift_toggle
 exec_always ~/.screenlayout/fullscreen.sh
 # exec_always xset r rate 269 19
