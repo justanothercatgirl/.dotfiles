@@ -11,6 +11,7 @@ luasnip.setup()
 
 local expnoresilent = {expr = true, noremap = true, silent = true}
 local noresilent = {noremap = true, silent = true}
+local map = cmp.mapping
 
 -- stolen from https://github.com/hrsh7th/nvim-cmp/wiki/Menu-Appearance
 local kind_icons = {
@@ -36,13 +37,17 @@ local stolen_function = function() -- to check whether there are words before cu
 	return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 
--- TODO: Finish
 cmp.setup {
 	snippet = {
 		expand = function(args)
-			vim.fn["vsnip#anonymous"](args.body)	-- for vsnip (i left it)
+			-- vim.fn["vsnip#anonymous"](args.body)	-- for vsnip (i left it)
 			luasnip.lsp_expand(args.body)		-- for luasnip cause i like it more
 		end,
+	},
+	mapping = {
+		["<C-n>"] = map.select_next_item(),
+		["<C-p>"] = map(map.select_prev_item({ behavior = cmp.SelectBehavior.Insert })),
+		["<C-Space>"] = map.complete(),
 	},
 	-- NOTE: ordering or this table affects completions ordering
 	sources = { 	-- TODO: Add keyword_length to some of them ??????
