@@ -2,7 +2,7 @@ source ~/.cursed_bash.sh
 
 # application shortcuts
 alias ls="ls --color"
-alias dl="bash download.sh"
+alias dl="~/.local/bin/download"
 alias qmake="/usr/lib/qt6/bin/qmake"
 alias psiphon="psiphon-console-client"
 alias cppreference="microsoft-edge-dev /usr/share/doc/cppreference/en/cpp.html"

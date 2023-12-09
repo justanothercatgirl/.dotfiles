@@ -16,8 +16,9 @@ local options = {
 	shiftwidth = 8,
 	smartindent = true,
 	swapfile = false,
-	timeoutlen = 1000, --ms
-	updatetime = 300,
+	timeoutlen = 1000,	--ms
+	termguicolors = true,
+	updatetime = 300,	--ms
 	writebackup = false,
 	expandtab = false, -- !!!!!!!!!
 	cursorline = false,
@@ -26,6 +27,8 @@ local options = {
 	-- splitting
 	splitbelow = true,
 	splitright = true,
+	-- autocompletion
+	completeopt = { 'menuone', 'noselect', 'noinsert' }
 }
 
 for key, val in pairs(options) do

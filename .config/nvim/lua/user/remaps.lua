@@ -14,6 +14,8 @@ map("n", "j", "<Up>", opt)
 map("n", "k", "<Down>", opt)
 map("n", "dj", "d<Up>", opt)
 map("n", "dk", "d<Down>", opt)
+map("v", "j", "<Up>", opt)
+map("v", "k", "<Down>", opt)
 
 -- window navigation
 map("n", "<C-j>", "<C-w>k", opt) -- SWITCHED K AND J
@@ -30,9 +32,9 @@ map("i", "<C-h>", "<Left>", opt)
 map("i", "<C-j>", "<Up>", opt)   -- SWITCHED K AND J
 map("i", "<C-k>", "<Down>", opt) -- SWITCHED K AND J
 map("i", "<C-l>", "<Right>", opt)
-map("i", "<C-w>", "<C-Right>", opt)
+map("i", "<C-w>", "<Esc>wi", opt)
 map("i", "<C-W>", "<Esc>Wi", opt)
-map("i", "<C-b>", "<C-Left>", opt)
+map("i", "<C-b>", "<Esc>bi", opt)
 map("i", "<C-B>", "<Esc>Bi", opt)
 
 -- Terminal mode
