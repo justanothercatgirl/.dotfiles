@@ -1,17 +1,19 @@
 -- this file contains setup for snippets and common LSP options
 
+-- WHY THE FUCK DID THE PROTECTED CALL SOLVE THE ISSUE UGH
 local cmp_status, cmp = pcall(require, 'cmp')
--- vim.api.nvim_echo({{"Hello!", "Normal"}}, true, {})
 if not cmp_status then
 	vim.api.nvim_err_writeln(string.format("shit! error status: %s", cmp_status))
 	return
 end
+autopairs_cmp = require 'nvim-autopairs.completion.cmp'
 luasnip = require 'luasnip'
 luasnip.setup()
 
 local expnoresilent = {expr = true, noremap = true, silent = true}
 local noresilent = {noremap = true, silent = true}
 local map = cmp.mapping
+local inselect = {"i", "s"}
 
 -- stolen from https://github.com/hrsh7th/nvim-cmp/wiki/Menu-Appearance
 local kind_icons = {
@@ -27,7 +29,7 @@ local kind_icons = {
 	Folder = "󰉋",	EnumMember = "",
 	Constant = "󰏿",	Struct = "",
 	Event = "",	Operator = "󰆕",
-	TypeParameter = "󰅲",
+	TypeParameter = "󰅲", Crate = "󰏗"
 }
 
 -- from https://github.com/hrsh7th/nvim-cmp/wiki/Example-mappings#luasnip
@@ -37,27 +39,71 @@ local stolen_function = function() -- to check whether there are words before cu
 	return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 
+local supertabforward = function(fallback)
+	if cmp.visible() then
+		cmp.select_next_item()
+	elseif luasnip.expand_or_jumpable() then
+		luasnip.expand_or_jump()
+	-- elseif stolen_function() then
+	-- 	cmp.complete()
+	else
+		fallback()
+	end
+end
+
+local supertabbackward = function(fallback)
+	if cmp.visible() then
+		cmp.select_prev_item()
+	elseif luasnip.jumpable(-1) then
+		luasnip.jump(-1)
+	else
+		fallback()
+	end
+end
+
+local superenterconfirm = function(fallback)
+	-- if cmp.visible and cmp.get_active_entry() then
+	if cmp.visible() then
+		cmp.confirm{ behavior = cmp.ConfirmBehavior.Replace, select = false }
+	else
+		fallback()
+	end
+end
+
 cmp.setup {
-	snippet = {
-		expand = function(args)
-			-- vim.fn["vsnip#anonymous"](args.body)	-- for vsnip (i left it)
-			luasnip.lsp_expand(args.body)		-- for luasnip cause i like it more
-		end,
-	},
+	snippet = { expand = function(args) luasnip.lsp_expand(args.body) end },
 	mapping = {
+		["<CR>"] = map{		
+			i = superenterconfirm,
+			s = map.confirm{ select = true },
+			c = map.confirm{ select = true },
+		},
+		["<Tab>"] = map(supertabforward, inselect),
+		["<S-Tab>"] = map(supertabbackward, inselect),
+		["<C-k>"] = map(supertabforward, inselect),
+		["<C-j>"] = map(supertabbackward, inselect),
+		["<C-l>"] = map(superenterconfirm, inselect),
+		["<C-h>"] = map(function(fallback) 
+			if cmp.visible() then
+				cmp.close()
+			else
+				fallback()
+			end
+		end, inselect),
 		["<C-n>"] = map.select_next_item(),
 		["<C-p>"] = map(map.select_prev_item({ behavior = cmp.SelectBehavior.Insert })),
-		["<C-Space>"] = map.complete(),
+		["<C-Space>"] = map.confirm{ select = false }, -- setting select to true does not seem to change anything
 	},
 	-- NOTE: ordering or this table affects completions ordering
 	sources = { 	-- TODO: Add keyword_length to some of them ??????
-		{ name = 'nvim_lsp' },
 		{ name = 'luasnip' },
-		{ name = 'buffer' },
-		{ name = 'path' },
-		{ name = 'calc' },
-		{ name = 'nvim_lua' },
-		{ name = 'nvim_lsp_signature_help' },
+		{ name = 'nvim_lsp' },
+		{ name = 'buffer', keyword_length = 3 },
+		{ name = 'crates' },
+		{ name = 'path', keyword_length = 2 },	-- will not be triggered if does not start with /
+		{ name = 'nvim_lua', keyword_length = 3 },
+		{ name = 'nvim_lsp_signature_help', keyword_length = 3 },
+		{ name = 'calc', keyword_length = 4 },	-- I don't even know what this is
 	},
 	formatting = {
 		fields = { "kind", "abbr", "menu" },
@@ -73,6 +119,7 @@ cmp.setup {
 				nvim_lua = "[Lua]",
 				calc = "[󰊕(x)dx]",
 				nvim_lsp_signature_help = "[Lsp-help]",
+				crates = "[Crate]",
 			})[entry.source.name]
 			return vim_item
 		end,
@@ -84,3 +131,4 @@ cmp.setup {
 	experimental = { ghost_text = true },
 }
 
+cmp.event:on( 'confirm_done', autopairs_cmp.on_confirm_done() )
