@@ -11,6 +11,11 @@ alias whatsapp=whatsie
 alias lan="bash zerotierconnect.sh"
 alias python=/home/main/coding/py/venv/bin/python3
 alias copy="xclip -selection clipboard"
+alias ""="g++"
+alias fucking=sudo
+alias AAAAA=su
+alias md=mkdir
+export DRO=/mnt/D/root
 
 export c="/mnt/C"
 export d="/mnt/D"

@@ -34,6 +34,9 @@ plugins = {
 		"neovim/nvim-lspconfig",		-- LSP configuration
 		event = { "InsertEnter" },
 	},
+	{
+		"simrat39/rust-tools.nvim",
+	},
 	
 
 	-- { "hrsh7th/vim-vsnip" },			-- snippet engine
@@ -87,7 +90,12 @@ plugins = {
 			require('crates').setup()
 		end,
 	},
-
+	{
+		'akinsho/bufferline.nvim',		-- tab & buffer line
+		version = "*", 
+		-- dependencies = 'nvim-tree/nvim-web-devicons'
+		-- for more details on how to configure this plugin in details please see `:h bufferline-configuration`
+	},
 	--{ "lvimuser/lsp-inlayhints.nvim" }		-- saved for the better times
 
 }
@@ -115,6 +123,8 @@ vim.opt.rtp:prepend(lazypath)
 -- initialization
 lazy = require("lazy")
 lazy.setup(plugins, opts)
--- lazy.load('nerdtree')
+
+-- miscellanous plugin setup
+require('bufferline').setup{}
 
 

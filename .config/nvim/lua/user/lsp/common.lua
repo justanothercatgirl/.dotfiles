@@ -1,5 +1,32 @@
 -- this file contains setup for snippets and common LSP options
 
+-- nvim diagnostics setup
+
+local define_sign = function(options)
+	vim.fn.sign_define(options.name, { texthl = options.name, text = options.textm, numhl = '' })
+end
+
+define_sign({name = "DiagnosticSignError", text = ''})
+define_sign({name = "DiagnosticSignWarn", text = ''})
+define_sign({name = "DiagnosticSignHint", text = ''})
+define_sign({name = "DiagnosticSignInfo", text = ''})
+
+vim.diagnostic.config{
+	virtual_text = true,
+	signs = true,
+	update_in_insert = false,
+	underline = true,
+	severity_sort = true,
+	float = {
+		source = 'always',
+	},
+}
+
+vim.cmd[[
+set signcolumn=yes
+autocmd CursorHold * lua vim.diagnostic.open_float(nil, { focusable = false })
+]]
+
 -- WHY THE FUCK DID THE PROTECTED CALL SOLVE THE ISSUE UGH
 local cmp_status, cmp = pcall(require, 'cmp')
 if not cmp_status then
@@ -8,7 +35,8 @@ if not cmp_status then
 end
 autopairs_cmp = require 'nvim-autopairs.completion.cmp'
 luasnip = require 'luasnip'
-luasnip.setup()
+-- require 'user.snippets'
+-- luasnip.setup()
 
 local expnoresilent = {expr = true, noremap = true, silent = true}
 local noresilent = {noremap = true, silent = true}
@@ -44,8 +72,6 @@ local supertabforward = function(fallback)
 		cmp.select_next_item()
 	elseif luasnip.expand_or_jumpable() then
 		luasnip.expand_or_jump()
-	-- elseif stolen_function() then
-	-- 	cmp.complete()
 	else
 		fallback()
 	end
@@ -80,8 +106,8 @@ cmp.setup {
 		},
 		["<Tab>"] = map(supertabforward, inselect),
 		["<S-Tab>"] = map(supertabbackward, inselect),
-		["<C-k>"] = map(supertabforward, inselect),
-		["<C-j>"] = map(supertabbackward, inselect),
+		["<C-k>"] = map.scroll_docs(2),
+		["<C-j>"] = map.scroll_docs(-2),
 		["<C-l>"] = map(superenterconfirm, inselect),
 		["<C-h>"] = map(function(fallback) 
 			if cmp.visible() then

@@ -1,0 +1,8 @@
+#/bin/bash
+
+[[ "x${TERMUX_VERSION}" == "x" ]] && PIPE_CMD='xclip -selection clipboard' || PIPE_CMD='cat -'
+
+gpg --pinentry-mode loopback --decrypt --quiet "${HOME}/.2fa/justanothercatgirl@github.com/.key" | oathtool --totp -b - | ${PIPE_CMD}
+
+
+

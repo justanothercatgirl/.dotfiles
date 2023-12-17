@@ -1,4 +1,3 @@
-
 require'nvim-autopairs'.setup{}
 require 'user.lsp.common'
 require 'user.lsp.haskell'
