@@ -3,6 +3,7 @@
 local opt = { noremap = true, silent = true }
 
 local map = vim.api.nvim_set_keymap
+local lmap = vim.keymap.set
 
 map("", "\\", "<Nop>", opt)
 vim.g.mapleader = "\\"
@@ -57,6 +58,10 @@ map("v", ">", ">gv", opt)
 map("n", "<A-j>", ":m .-2<CR>==", opt) -- SWITCHED K AND J
 map("n", "<A-k>", ":m .+1<CR>==", opt) -- SWITCHED K AND J
 
+-- moving buffer
+map("n", "<A-Down>", "<C-e>", opt)
+map("n", "<A-Up>", "<C-y>", opt)
+
 -- duplicating lines 
 map("n", "<C-A-Up>", ":.,.t.-1<CR>==", opt)
 map("n", "<C-A-Down>", ":.,.t.<CR>==", opt)
@@ -74,3 +79,42 @@ map("c", "w!!", "w !sudo tee % > /dev/null", opt)
 map("n", "G", "G$", opt)
 map("n", "gg", "gg0", opt)
 
+-- treesitter remaps
+map("n", "<leader>h", "zC", opt)
+map("n", "<leader>l", "zO", opt)
+map("n", "<leader>H", "zM", opt)
+map("n", "<leader>L", "zR", opt)
+map("n", "<leader>f", "za", opt)
+
+-- disgnostic remaps
+lmap("n", "<leader>d", vim.diagnostic.open_float)
+lmap("n", "d[", vim.diagnostic.goto_prev)
+lmap("n", "d]", vim.diagnostic.goto_next)
+
+-- language server remaps
+-- enable only after attaching language server to buffer 
+vim.api.nvim_create_autocmd('LspAttach', {
+	group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+	callback = function(event) 
+		-- i don't know whether i should enable this
+		-- vim.bo[event.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
+		local opts = { buffer = event.buf }
+		vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
+		vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+		vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+		vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
+		vim.keymap.set('n', '<leader><C-k>', vim.lsp.buf.signature_help, opts)
+		vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, opts)
+		vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, opts)
+		vim.keymap.set('n', '<leader>wl', function()
+			print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+		end, opts)
+		vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, opts)
+		vim.keymap.set('n', '<leader>r', vim.lsp.buf.rename, opts)
+		vim.keymap.set({ 'n', 'v' }, '<leader>a', vim.lsp.buf.code_action, opts)
+		vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+		vim.keymap.set('n', '<leader>F', function()
+			vim.lsp.buf.format { async = true }
+		end, opts)
+	end,
+})

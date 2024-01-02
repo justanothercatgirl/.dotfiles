@@ -28,7 +28,9 @@ local options = {
 	splitbelow = true,
 	splitright = true,
 	-- autocompletion
-	completeopt = { 'menuone', 'noselect', 'noinsert' }
+	completeopt = { 'menuone', 'noselect', 'noinsert' },
+	-- treesitter
+	foldlevel = 3,
 }
 
 for key, val in pairs(options) do

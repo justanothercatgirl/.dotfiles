@@ -12,9 +12,8 @@ font pango:monospace 8
 # https://wiki.archlinux.org/index.php/XDG_Autostart
 exec --no-startup-id dex --autostart --environment i3
 
-# xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
-# screen before suspend. Use loginctl lock-session to lock your screen.
-exec --no-startup-id xss-lock --transfer-sleep-lock -- $lock_cmd --nofork
+# REMOVED TEMPORARY
+# exec --no-startup-id xss-lock --transfer-sleep-lock -- $lock_cmd --nofork
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
@@ -127,7 +126,7 @@ set $ws3 "3: messengers"
 set $ws4 "4: file manager"
 set $ws5 "5: office"
 set $ws6 "6"
-set $ws7 "7"
+set $ws7 "7: games"
 set $ws8 "8: media player"
 set $ws9 "9: code assisting"
 set $ws10 "10: code editors"
@@ -173,6 +172,8 @@ assign [class="pm"] workspace $ws5
 assign [class="vlc"] workspace $ws8
 assign [class="libreoffice"] workspace $ws5
 assign [class="steam"] workspace $ws9
+assign [class="org-tlauncher-tlauncher-rmo-TLauncher"] workspace $ws7
+assign [class="^Minecraft.*$"] workspace $ws7
 #assign [class="GigaQt"] workspace $ws9
 
 
@@ -183,7 +184,7 @@ workspace $ws3 output $monitor_primary
 # workspace $ws4 output $monitor_primary
 workspace $ws5 output $monitor_primary
 workspace $ws6 output $monitor_secondary
-workspace $ws7 output $monitor_secondary
+workspace $ws7 output $monitor_primary
 workspace $ws8 output $monitor_secondary
 workspace $ws9 output $monitor_secondary
 workspace $ws10 output $monitor_primary
