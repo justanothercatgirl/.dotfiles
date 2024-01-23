@@ -131,8 +131,8 @@ set $ws8 "8: media player"
 set $ws9 "9: code assisting"
 set $ws10 "10: code editors"
 
-set $monitor_primary "eDP1"
-set $monitor_secondary "HDMI-1-0"
+set $monitor_primary "DP-0"
+set $monitor_secondary "HDMI-0"
 
 # switch to workspace
 bindsym $mod+1 workspace number $ws1
@@ -190,8 +190,8 @@ workspace $ws9 output $monitor_secondary
 workspace $ws10 output $monitor_primary
 
 # move workspaces
-bindsym $mod+Shift+less move workspace to output $monitor_secondary 
-bindsym $mod+Shift+greater move workspace to output $monitor_primary
+bindsym $mod+Shift+greater move workspace to output $monitor_secondary 
+bindsym $mod+Shift+less move workspace to output $monitor_primary
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
