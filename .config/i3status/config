@@ -1,0 +1,54 @@
+
+general {
+	output_format = "i3bar"
+	colors = true
+	interval = 5
+}
+
+order += "wireless wlan0"
+order += "ethernet enp3s0"
+order += "volume master"
+order += "disk /"
+order += "memory"
+order += "cpu_usage"
+order += "cpu_temperature 0"
+order += "time"
+
+wireless wlan0 {
+	format_up = "%quality at %ip"
+	format_down = ""
+}
+
+ethernet enp3s0 {
+	format_up = "Eth: %ip"
+	format_down = "Eth: N/A"
+}
+
+volume master {
+	format = "󰕾 %volume"
+	format_muted = "󰝟 "
+	device = "default"
+	mixer = "Master"
+}
+
+disk "/" {
+	format = " %avail"
+}
+
+cpu_usage {
+	format = " %usage"
+	max_threshold = 75
+} 
+cpu_temperature 0 {
+	format = "%degrees 󰔄"
+	max_threshold = 75
+	format_above_threshold = "TEMPERATURE: %degrees 󰔄"
+}
+
+memory {
+	format = "󰍛 %used"
+}
+
+time {
+	format = "%H:%M:%S %Y-%m-%d "
+}

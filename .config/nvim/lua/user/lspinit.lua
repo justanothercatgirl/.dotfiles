@@ -6,6 +6,6 @@ require 'user.lsp.bash'
 require 'user.lsp.rust'
 require 'user.lsp.cxx'
 require 'user.lsp.lua'
-
+require 'user.lsp.asm'
 -- lsp = require 'lspconfig'
 
