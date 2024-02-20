@@ -6,7 +6,7 @@ general {
 }
 
 order += "wireless wlan0"
-order += "ethernet enp3s0"
+order += "ethernet enp4s0"
 order += "volume master"
 order += "disk /"
 order += "memory"
@@ -19,7 +19,7 @@ wireless wlan0 {
 	format_down = ""
 }
 
-ethernet enp3s0 {
+ethernet enp4s0 {
 	format_up = "Eth: %ip"
 	format_down = "Eth: N/A"
 }
