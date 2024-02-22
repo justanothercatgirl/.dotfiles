@@ -53,6 +53,14 @@ plugins = {
 		event = { "InsertEnter" },
 	},
 
+	{
+		"CRAG666/code_runner.nvim",
+		config = true,
+	},
+	{
+		"akinsho/toggleterm.nvim",
+		config = true,
+	},
 
 	-- Autocompletion framework
 	{ 
@@ -126,5 +134,4 @@ lazy.setup(plugins, opts)
 
 -- miscellanous plugin setup
 require('bufferline').setup{}
-
 

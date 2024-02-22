@@ -68,9 +68,12 @@ map("n", "<C-A-Down>", ":.,.t.<CR>==", opt)
 
 -- leader remaps
 map("n", "<leader>/", ":nohlsearch<CR>", opt)				-- discard search highlighting
-map("n", "<leader>t", ":split<CR>:terminal<CR>:resize 4<CR>", opt)	-- open terminal fullscreen with \T
-map("n", "<leader>T", ":vsplit<CR>:terminal<CR>", opt)			-- split to terminal with \t
 map("n", "<leader>pl", ":Lazy<CR>", opt)				-- open plugin manager
+-- Old mappings for the terminal
+-- map("n", "<leader>t", ":split<CR>:terminal<CR>:resize 4<CR>", opt)	-- open terminal fullscreen with \T
+-- map("n", "<leader>T", ":vsplit<CR>:terminal<CR>", opt)			-- split to terminal with \t
+map("", "<leader>t", ":ToggleTerm<CR>", opt)	-- open ToggleTerm
+map("t", "<leader>t", ":ToggleTerm<CR>", opt)	-- close ToggleTerm
 
 -- miscellaneous
 map("c", "w!!", "w !sudo tee % > /dev/null", opt)
@@ -90,6 +93,10 @@ map("n", "<leader>f", "za", opt)
 lmap("n", "<leader>d", vim.diagnostic.open_float)
 lmap("n", "d[", vim.diagnostic.goto_prev)
 lmap("n", "d]", vim.diagnostic.goto_next)
+
+-- Code Runner remaps
+map("n", "<F5>", ":RunCode<CR>", opt)
+map("n", "<F2>", ":echo 'time: ' . strftime('%c')<CR>", opt)
 
 -- language server remaps
 -- enable only after attaching language server to buffer 
