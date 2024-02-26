@@ -3,13 +3,14 @@
 -- nvim diagnostics setup
 
 local define_sign = function(options)
-	vim.fn.sign_define(options.name, { texthl = options.name, text = options.textm, numhl = '' })
+	vim.fn.sign_define(options.name, { texthl = options.name, text = options.text, numhl = options.hl })
 end
 
-define_sign({name = "DiagnosticSignError", text = ''})
-define_sign({name = "DiagnosticSignWarn", text = ''})
-define_sign({name = "DiagnosticSignHint", text = ''})
-define_sign({name = "DiagnosticSignInfo", text = ''})
+define_sign({name = "DiagnosticSignError", text = '', hl = 'ErrorMsg'})
+define_sign({name = "DiagnosticSignWarn", text = '', hl = 'IncSearch'})
+define_sign({name = "DiagnosticSignHint", text = '', hl = 'Search'})
+-- define_sign({name = "DiagnosticSignInfo", text = ''})
+vim.fn.sign_define("DiagnosticSignInfo", { texthl="Ignore", text = "", numhl = 'TermCursor' })
 
 vim.diagnostic.config{
 	virtual_text = true,

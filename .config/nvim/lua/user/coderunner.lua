@@ -6,7 +6,7 @@ require('code_runner').setup({
 	focus = true,
 	startinsert = true,
     	filetype = {
-        	rust = 'cargo check; if [ \\$? -ne 0 ]; then echo cargo check failed; else cargo run; if [ \\$? -ne 0 ]; then cargo test --test-threads=1; sleep 1; fi; fi; echo $file > /dev/null',
+        	rust = 'cargo check; if [ \\$? -ne 0 ]; then echo cargo check failed; else cargo run || cargo test -- --nocapture --test-threads=1; fi; echo $file > /dev/null',
 		cpp = function()
 			local script = 
 			'echo $file > /dev/null;' ..

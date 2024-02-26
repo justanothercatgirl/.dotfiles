@@ -34,9 +34,10 @@ plugins = {
 		"neovim/nvim-lspconfig",		-- LSP configuration
 		event = { "InsertEnter" },
 	},
-	{
-		"simrat39/rust-tools.nvim",
+	{ 
+		"FabijanZulj/blame.nvim",		-- git blame integration
 	},
+	{ "simrat39/rust-tools.nvim" },			-- no commments
 	
 
 	-- { "hrsh7th/vim-vsnip" },			-- snippet engine
@@ -49,16 +50,16 @@ plugins = {
 		event = { "InsertEnter" },
 	},
 	{
-		"rafamadriz/friendly-snippets", 		-- predefined snippets
+		"rafamadriz/friendly-snippets", 	-- predefined snippets
 		event = { "InsertEnter" },
 	},
 
 	{
-		"CRAG666/code_runner.nvim",
+		"CRAG666/code_runner.nvim",		-- TODO: setup magic filenames to be executed per-project
 		config = true,
 	},
 	{
-		"akinsho/toggleterm.nvim",
+		"akinsho/toggleterm.nvim",		-- a terminal, horaaaay
 		config = true,
 	},
 
@@ -134,4 +135,8 @@ lazy.setup(plugins, opts)
 
 -- miscellanous plugin setup
 require('bufferline').setup{}
-
+require('blame').setup{
+	width = 16,
+	date_format = "%H:%M:%S %Y-%m-%d",
+	merge_consecutive = true,
+}
