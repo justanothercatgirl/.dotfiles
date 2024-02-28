@@ -1,4 +1,9 @@
 
+function cut_dots {
+	read arg
+	echo $arg | awk "{ if (length > $1) print substr(\$0,1,$(($1 - 2)))\"..$2\"; else if (length > 1) print \$0\"$2\"; else print; }"
+}
+
 function count_git_files_length {
 	echo $( for i in `git ls-tree --full-tree -r --name-only HEAD`; do wc -l "$i"; done | sed -r 's/[^0-9]+/\+/g' | cat - <(echo 0) | tr -d '\n'; echo )  | bc
 }
