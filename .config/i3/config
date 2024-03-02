@@ -291,7 +291,11 @@ exec firefox
 #exec discord
 #exec qtcreator
 #exec doublecmd
-exec_always feh --bg-fill ~/wallpaper/dec2023.png
+
+# author: li0n (kongshushiwo)`
+# source1 (weibo): https://www.weibo.com/6593199887/L3yxyEJ1T
+# source2 (gelbooru): https://gelbooru.com/index.php?page=post&s=view&id=7506062 
+exec_always feh --bg-fill ~/wallpaper/yae_beautiful_1.jpg
 exec_always setxkbmap -layout us,ru -option grp:alt_shift_toggle
 exec_always ~/.screenlayout/fullscreen.sh
 # exec_always xset r rate 269 19
