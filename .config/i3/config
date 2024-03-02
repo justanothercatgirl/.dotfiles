@@ -41,7 +41,6 @@ bindsym $mod+Shift+b exec sudo systemctl stop bluetoth.service
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
-# start a terminal
 # bindsym $mod+Return exec i3-sensible-terminal #save the defaults just in case
 bindsym $mod+Return exec $terminal
 
@@ -50,7 +49,7 @@ bindsym $mod+Return exec $terminal
 bindsym $mod+Shift+w kill
 
 # run actual launcher
-bindsym $mod+d exec "rofi -modi drun,run -show drun"  
+bindsym $mod+d exec "rofi -show combi"  
 # backup launcher
 bindsym $mod+Shift+d exec --no-startup-id dmenu_run
 
@@ -65,17 +64,17 @@ bindsym $mod+l focus down
 bindsym $mod+semicolon focus right
 
 #screenshots
-# OLD SETTINGS 
+# --- OLD SETTINGS ---
 # bindsym Print exec coreshot -f
 # bindsym $mod+Print exec coreshot -s
 # bindsym $mod+Shift+Print exec coreshot -w
-
+# --- NEW SETTINGS ---
 set $maim maim --tolerance=1 --quiet 
-#--color="56,200,200,69"
 set $maim_paste tee ~/Screenshots/screenshot-$(date +"%Y-%m-%dT%H:%M:%S").png | xclip -selection clipboard -t image/png
 bindsym Print exec $maim | $maim_paste
 bindsym $mod+Print exec $maim -s | $maim_paste
 bindsym $mod+Shift+Print exec $maim -i $(xdotool getactivewindow) | $maim_paste
+# --- END SETTINGS ---
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -282,19 +281,19 @@ exec_always ~/.screenlayout/doublemonitor.layout.sh
 # only needed for my laptop
 # exec_always kboff 
 # switch keyboard colors
-exec openrgb --color "00FFFF"
+# I got tired of this color
+# exec openrgb --color "00FFFF"
 
 exec $terminal 
 exec $terminal -e bashtop
 exec firefox
-#exec telegram-desktop
-#exec discord
-#exec qtcreator
-#exec doublecmd
+exec telegram-desktop
+exec discord
 
-# author: li0n (kongshushiwo)`
-# source1 (weibo): https://www.weibo.com/6593199887/L3yxyEJ1T
-# source2 (gelbooru): https://gelbooru.com/index.php?page=post&s=view&id=7506062 
+# WALLPAPER
+# * author: li0n (kongshushiwo)`
+# * source1 (weibo): https://www.weibo.com/6593199887/L3yxyEJ1T
+# * source2 (gelbooru): https://gelbooru.com/index.php?page=post&s=view&id=7506062 
 exec_always feh --bg-fill ~/wallpaper/yae_beautiful_1.jpg
 exec_always setxkbmap -layout us,ru -option grp:alt_shift_toggle
 exec_always ~/.screenlayout/fullscreen.sh

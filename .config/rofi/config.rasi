@@ -1,0 +1,14 @@
+configuration {
+	show-icons: true;
+	terminal: "sakura";
+
+	modi: "combi,drun,window,ssh";
+	combi-modes: "window,drun";
+	combi-display-format: "{text}";
+
+	kb-mode-next: "Alt+Tab";
+	kb-mode-previous: "Alt+Shift+Tab";
+}
+
+@theme "custom"
+

@@ -40,7 +40,7 @@ shopt -s autocd
 # C_RESET="\[\e[0m\]"
 
 export JAVA_HOME="/usr/lib/jvm/default/"
-export PS1='[\[\e[1;32m\]\u@\h\[\e[0m\]:\[\e[36m\]\W\[\e[93m\]$(__git_ps1 "(%s" | cut_dots 15 ")")\[\e[37m]\[\e[38;5;183m\]\$\[\e[0m\] '
+export PS1='[\[\e[1;32m\]\u@\h\[\e[0m\]:\[\e[36m\]\W\[\e[93m\]$(__git_ps1 "(%s" | cut_dots 15 ")")\[\e[37m\]]\[\e[38;5;183m\]\$\[\e[0m\] '
 # dotfiles
 
 GHC_PACKAGE_PATH="/usr/lib/ghc-9.0.2/package.conf.d"

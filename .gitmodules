@@ -1,0 +1,3 @@
+[submodule "/home/main/.config/rofi/themes"]
+	path = /home/main/.config/rofi/themes
+	url = https://github.com/Murzchnvok/rofi-collection
