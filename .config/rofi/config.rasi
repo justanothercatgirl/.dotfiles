@@ -2,7 +2,7 @@ configuration {
 	show-icons: true;
 	terminal: "sakura";
 
-	modi: "combi,drun,window,ssh";
+	modi: "combi,ssh,drun,window";
 	combi-modes: "window,drun";
 	combi-display-format: "{text}";
 

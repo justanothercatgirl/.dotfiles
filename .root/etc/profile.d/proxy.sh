@@ -17,6 +17,10 @@ function proxy-enable() {
 		gsettings set org.gnome.system.proxy.$i port 2080
 	done
 
+	# git
+	git config --global http.proxy 127.0.0.1:2080
+	git config --global https.proxy 127.0.0.1:2080
+
 	export PROXY_ON_JCG=true
 	echo "proxy enabled"
 }
@@ -26,6 +30,8 @@ function proxy-disable() {
 	unset HTTP_PROXY FTP_PROXY HTTPS_PROXY http_proxy ftp_proxy https_proxy
 	export -n HTTP_PROXY FTP_PROXY HTTPS_PROXY http_proxy ftp_proxy https_proxy
 	gsettings reset org.gnome.system.proxy mode
+	git config --global --unset http.proxy
+	git config --global --unset https.proxy
 
 	unset PROXY_ON_JCG
 	echo "proxy disabled"
