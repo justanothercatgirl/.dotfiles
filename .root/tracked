@@ -1,0 +1,17 @@
+/etc/sing-box/json_to_libconfig.py
+/etc/sing-box/libconfig_to_json.py
+/etc/profile
+/etc/profile.d/aliases.sh
+/etc/profile.d/var.sh
+/etc/profile.d/proxy.sh
+/usr/local/bin/grub-update
+/usr/local/bin/encrypted
+/usr/local/bin/proxyctl
+/boot/efi/grub-workaround.sh
+
+
+/etc/default/grub 
+/etc/mkinitcpio.conf
+/etc/pacman.conf 
+/etc/pacman.d/mirrorlist-archzfs
+

@@ -1,0 +1,65 @@
+#!/bin/env /bin/bash
+
+. /etc/profile.d/proxy.sh
+
+function proxy_update_config() {
+	if [ $UID -ne 0 ]; then
+		echo "This command requires root privileges. Aborting..."
+		exit 1
+	fi
+	SRCD=/etc/sing-box
+	${SRCD}/libconfig_to_json.py ${SRCD}/libconfig ${SRCD}/config.json 
+	if [ $? -ne 0 ]; then
+		echo "Failed to write config. Aborting..."
+		exit 1
+	fi
+
+	systemctl restart sing-box
+	status=$(systemctl status sing-box)
+	if [ $? -ne 0 ]; then
+		echo "Failed to start sing-box. Manual intervention needed."
+		exit 1
+	else
+		echo "Success"
+	fi
+}
+
+function __help() {
+	echo "This script controls the sing-box proxy on a system"
+	echo "Usage: "
+	echo "	proxyctl [update/reload | on/up | off/down | start | stop | enable | disable]"
+	echo "	update or reload: reloads the sing-box configuration (in libconfig)"
+	echo "	on or up: sets the environmental variables to tell programs to use proxy on 127.0.0.1:2080"
+	echo "	off or down: unsets the proxy-related enviromnental variables"
+	echo "	start, stop, enable and disable: corresponding systemctl commands for sing-box service"
+	echo "Return status: "
+	echo "	0: success"
+	echo "	any other: something went wrong."
+	echo "	[If running systemctl commands]: the return status of 'systemctl status sing-box'"
+}
+
+if [ $# -lt 1 ]; then
+	echo "insufficient arguments. needed: . provided: $#"
+	__help
+	exit 1
+fi
+if [ $1 = update ] || [ $1 = reload ]; then
+	proxy_update_config
+elif [ $1 = on ] || [ $1 = up ]; then
+	proxy-enable
+elif [ $1 = off ] || [ $1 = down ]; then
+	proxy-disable
+elif [ $1 = start ] || [ $1 = stop ] || [ $1 = enable ] || [ $1 = disable ]; then
+	systemctl $1 sing-box 
+	STATUS_TEXT=$(systemctl status sing-box)
+	STATUS=$?
+	if [ ${STATUS} -ne 0 ]; then
+		echo "Failed to $1 sing-box"
+		echo "otput of 'systemctl status sing-box':"
+		echo ${STATUS_TEXT}
+		exit ${STATUS}
+	fi
+else
+	echo "Unknown command."
+	exit 1
+fi

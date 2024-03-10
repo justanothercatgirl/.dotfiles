@@ -1,4 +1,12 @@
 
+function tgtrans() {
+	true #TODO
+}
+
+function tgsolid() {
+	true #TODO
+}
+
 function cut_dots {
 	read arg
 	echo $arg | awk "{ if (length > $1) print substr(\$0,1,$(($1 - 2)))\"..$2\"; else if (length > 1) print \$0\"$2\"; else print; }"

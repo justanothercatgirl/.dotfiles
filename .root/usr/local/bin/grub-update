@@ -1,0 +1,15 @@
+#!/bin/sh
+
+set -e
+
+if [ $UID -ne 0 ]; then
+	echo "Invalid UID! Must be run as root!"
+	exit -1
+fi
+
+mount /dev/nvme0n1p1 /boot/efi
+grub-mkconfig -o /boot/efi/archlinux/x86_64-efi/grub/grub.cfg
+/boot/efi/grub-workaround.sh
+mv -f /boot/efi/grub/grub.cfg /boot/efi/grub/grub.cfg.old
+cp /boot/efi/archlinux/x86_64-efi/grub/grub.cfg /boot/efi/grub/grub.cfg
+umount /boot/efi/

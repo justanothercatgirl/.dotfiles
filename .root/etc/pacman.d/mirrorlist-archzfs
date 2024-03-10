@@ -1,0 +1,13 @@
+## See https://github.com/archzfs/archzfs/wiki
+## France
+Server = https://archzfs.com/$repo/$arch
+
+## Germany
+Server = https://mirror.sum7.eu/archlinux/archzfs/$repo/$arch
+Server = https://mirror.biocrafting.net/archlinux/archzfs/$repo/$arch
+
+## India
+Server = https://mirror.in.themindsmaze.com/archzfs/$repo/$arch
+
+## United States
+Server = https://zxcvfdsa.com/archzfs/$repo/$arch

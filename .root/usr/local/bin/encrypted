@@ -1,0 +1,54 @@
+#!/bin/bash
+
+if [ $UID -ne 0 ]; then
+	echo "This script must be run as root."
+	exit 1
+fi
+
+encrypted_datasets=("zfsroot/encrypted")
+
+function __mount() {
+	for i in "${encrypted_datasets[@]}"; do
+		zfs load-key "$i";
+		if [ $? -ne 0 ]; then 
+			echo "Error importing the key! Aborting dataset ${i}"
+			continue
+		fi
+		zfs mount "$i";
+		if [ $? -eq 0 ]; then
+			echo "Successfully mounted dataset ${i}"
+		else
+			echo "Error mounting ${i}."
+		fi
+	done
+}
+function __umount() {
+	for i in "${encrypted_datasets[@]}"; do
+		zfs unmount "$i"
+		if [ $? -ne 0 ]; then
+			echo "Could not unmount partition ${i}"
+			exit 1
+		fi
+		zfs unload-key "$i"
+	done
+
+}
+
+function __help() {
+	echo "Mount and unmount all encrypted zfs partitions"
+	echo "ALL PARTITIONS must be specified in array encrypted_datasets directly in source"
+	echo "Usage: "
+	echo "	encrypted [mount|umount]"
+	echo "If volumes are protected with a password, you will be prompted"
+}
+
+if [ $1 = mount ]; then
+	echo "mounting ${encrypted_datasets[@]}"
+	__mount 
+elif [ $1 = umount ]; then
+	echo "unmounting ${encrypted_datasets[@]}"
+	__umount 
+else
+	echo "Help:"
+	__help 
+fi
