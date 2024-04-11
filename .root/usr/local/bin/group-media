@@ -10,14 +10,15 @@ DO_THING=true
 while [ $# -gt 0 ]; do
 	case "$1" in 
 		-h | --help)
-			echo "this is a script for grouping songs in 1 directory into subdirectories based on album."
-			echo "command line options:"
+			echo -e "this is a script for grouping songs in 1 directory into subdirectories based on album."
+			echo -e "command line options:"
 			echo -e "\t-h, --help: print this message"
 			echo -e "\t-i, -ii: interactiveness. -i asks whether to create a directory, -ii asks before moving each file"
 			echo -e "\t -v, -vv: verboseness. -v prints all albums, -vv prints all moved files"
 			echo -e "\t-r, --dry-run: do not change anything, only print what would have been done. useless without verboseness."
 			echo -e "\t-d [DIR], --directory [DIR]: working directory for the script"
-			echo -e "I AM NOT responsible for anything that might go wrong in this script"
+			echo -e "I AM NOT responsible for anything that might go wrong in this script!"
+			echo -e "I did test this on my library and it did a good job, though."
 			exit 0
 			;;
 		-d | --directory)
