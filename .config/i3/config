@@ -186,7 +186,7 @@ assign [class="dotnet"] workspace $ws7
 assign [class="^Minecraft.*$"] workspace $ws7
 assign [class="vlc"] workspace $ws8
 assign [class="spotify"] workspace $ws8
-#assign [class="GigaQt"] workspace $ws9
+assign [class="Spotyfi"] workspace $ws8
 
 
 #monitors

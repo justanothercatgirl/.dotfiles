@@ -1,24 +1,24 @@
-#!/bin/env /bin/bash
+#!/bin/bash
 
 . /etc/profile.d/proxy.sh
 
 function proxy_update_config() {
 	if [ $UID -ne 0 ]; then
 		echo "This command requires root privileges. Aborting..."
-		exit 1
+		return 1
 	fi
 	SRCD=/etc/sing-box
 	${SRCD}/libconfig_to_json.py ${SRCD}/libconfig ${SRCD}/config.json 
 	if [ $? -ne 0 ]; then
 		echo "Failed to write config. Aborting..."
-		exit 1
+		return 1
 	fi
 
 	systemctl restart sing-box
 	status=$(systemctl status sing-box)
 	if [ $? -ne 0 ]; then
 		echo "Failed to start sing-box. Manual intervention needed."
-		exit 1
+		return 1
 	else
 		echo "Success"
 	fi
@@ -41,7 +41,7 @@ function __help() {
 if [ $# -lt 1 ]; then
 	echo "insufficient arguments. needed: . provided: $#"
 	__help
-	exit 1
+	return 1
 fi
 if [ $1 = update ] || [ $1 = reload ]; then
 	proxy_update_config
@@ -57,9 +57,11 @@ elif [ $1 = start ] || [ $1 = stop ] || [ $1 = enable ] || [ $1 = disable ]; the
 		echo "Failed to $1 sing-box"
 		echo "otput of 'systemctl status sing-box':"
 		echo ${STATUS_TEXT}
-		exit ${STATUS}
+		return ${STATUS}
 	fi
+elif [ $1 = "--help" ] || [ $1 = help ] || [ $1 = "-h" ]; then
+	__help
 else
 	echo "Unknown command."
-	exit 1
+	return 1
 fi

@@ -1,7 +1,10 @@
+
 source /etc/profile
 source "$HOME/.cursed_bash.sh"
 source /usr/share/git/git-prompt.sh
 source /usr/share/doc/pkgfile/command-not-found.bash
+
+eval "$(zoxide init --cmd cd bash)"
 
 # application shortcuts
 alias ls="ls --color"
@@ -42,6 +45,11 @@ shopt -s autocd
 export JAVA_HOME="/usr/lib/jvm/default/"
 export PS1='[\[\e[1;32m\]\u@\h\[\e[0m\]:\[\e[36m\]\W\[\e[93m\]$(__git_ps1 "(%s" | cut_dots 15 ")")\[\e[37m\]]\[\e[38;5;183m\]\$\[\e[0m\] '
 # dotfiles
+
+# zerotier 
+export ZEROTIER_CENTRAL_TOKEN="/etc/zerotier/token"
+
+
 
 GHC_PACKAGE_PATH="/usr/lib/ghc-9.0.2/package.conf.d"
 # Created by `pipx` on 2023-08-09 18:40:17

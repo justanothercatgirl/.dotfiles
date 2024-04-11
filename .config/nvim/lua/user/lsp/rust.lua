@@ -10,6 +10,9 @@ rust.setup{
 		cargo = {
 			features = {"multithread"},
 		},
+		check = {
+			command = "clippy",
+		},
 	},
 }
 

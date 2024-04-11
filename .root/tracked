@@ -7,8 +7,8 @@
 /usr/local/bin/grub-update
 /usr/local/bin/encrypted
 /usr/local/bin/proxyctl
+/usr/local/bin/group-media
 /boot/efi/grub-workaround.sh
-
 
 /etc/default/grub 
 /etc/mkinitcpio.conf

@@ -8,8 +8,9 @@ end
 
 define_sign({name = "DiagnosticSignError", text = '', hl = 'ErrorMsg'})
 define_sign({name = "DiagnosticSignWarn", text = '', hl = 'IncSearch'})
-define_sign({name = "DiagnosticSignHint", text = '', hl = 'Search'})
+-- define_sign({name = "DiagnosticSignHint", text = '', hl = 'Search'})
 -- define_sign({name = "DiagnosticSignInfo", text = ''})
+vim.fn.sign_define("DiagnosticSignHint", { texthl="DiagnosticSignHint", linehl = "Ignore", text = "", numhl = 'TermCursor' })
 vim.fn.sign_define("DiagnosticSignInfo", { texthl="Ignore", text = "", numhl = 'TermCursor' })
 
 vim.diagnostic.config{

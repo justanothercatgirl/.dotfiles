@@ -9,6 +9,12 @@ encrypted_datasets=("zfsroot/encrypted")
 
 function __mount() {
 	for i in "${encrypted_datasets[@]}"; do
+		zfs list -o mounted "$i" | grep --quiet yes
+		if [ $? -eq 0 ]; then
+			echo "Dataset $i is already mounted. Skipping."
+			continue
+		fi
+
 		zfs load-key "$i";
 		if [ $? -ne 0 ]; then 
 			echo "Error importing the key! Aborting dataset ${i}"

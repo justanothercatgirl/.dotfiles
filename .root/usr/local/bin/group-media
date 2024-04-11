@@ -1,0 +1,104 @@
+#!/bin/bash
+
+set -e
+
+DIR="."
+INTERACTIVE=0
+VERBOSE=0
+DO_THING=true
+
+while [ $# -gt 0 ]; do
+	case "$1" in 
+		-h | --help)
+			echo "this is a script for grouping songs in 1 directory into subdirectories based on album."
+			echo "command line options:"
+			echo -e "\t-h, --help: print this message"
+			echo -e "\t-i, -ii: interactiveness. -i asks whether to create a directory, -ii asks before moving each file"
+			echo -e "\t -v, -vv: verboseness. -v prints all albums, -vv prints all moved files"
+			echo -e "\t-r, --dry-run: do not change anything, only print what would have been done. useless without verboseness."
+			echo -e "\t-d [DIR], --directory [DIR]: working directory for the script"
+			echo -e "I AM NOT responsible for anything that might go wrong in this script"
+			exit 0
+			;;
+		-d | --directory)
+			if ! test -z "$2"; then
+				DIR="$2"
+			else
+				echo "-d requires a value"
+				exit 1
+			fi
+			shift 2
+			;;
+		-r | --dry-run)
+			DO_THING=false
+			shift	
+			;;
+		-i)
+			((++INTERACTIVE))
+			shift
+			;;
+		-ii)
+			((INTERACTIVE += 2))
+			shift
+			;;
+		-v)
+			((++VERBOSE))
+			shift
+			;;
+		-vv)
+			((VERBOSE += 2))
+			shift
+			;;
+		*)
+			echo "unknown argument: $1"
+			exit 1
+			;;
+	esac
+done
+
+if ! which eyeD3 &> /dev/null; then
+	echo "eyeD3 must be available in PATH for this script to work. try installing it throug python-pip (or pipx)"
+	exit 1
+fi
+
+for i in "$DIR"/*; do
+	if test -f "$i"; then
+		ALB="$DIR"/$(eyeD3 "$i" | awk '/album:/{$1="";print $0}' | xargs);
+		if test -z "$ALB"; then
+			echo "song \"$i\" does not have an album."
+			continue
+		fi
+		if test 0 -eq $INTERACTIVE; then
+			if $DO_THING; then mkdir -p "$ALB"; fi
+			if test 1 -le $VERBOSE; then
+				echo "made directory $ALB"
+			fi
+		else
+			if ! test -d "$ALB"; then
+				unset cont; read -n 1 -p "mkdir \"$ALB\" ? [Y/n]"
+				echo
+				if [[ $cont =~ ^[Yy]$ ]] || [ -z $cont ]; then
+					if $DO_THING; then mkdir "$ALB"; fi
+					if test 1 -le $VERBOSE; then
+						echo "made directory \"$ALB\""
+					fi
+				fi
+			fi
+		fi
+		
+		if test 2 -eq $INTERACTIVE; then
+			unset cont; read -n 1 -p "mv \"$i\" -> \"$ALB\" ? [Y/n]" cont
+			echo
+			if [[ $cont =~ ^[nN]$ ]]; then 
+				continue 
+			fi
+		fi
+		
+		if $DO_THING; then mv "$i" "$ALB"; fi
+		if test 2 -eq $VERBOSE; then
+			echo "moved \"$i\" to \"$ALB\""
+		fi
+	fi
+done
+
+# vim: filetype=bash
