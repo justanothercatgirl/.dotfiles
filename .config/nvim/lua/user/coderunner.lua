@@ -16,5 +16,7 @@ require('code_runner').setup({
 			'cd ..'
 			vim.cmd(string.format("TermExec cmd='%s'", script))
 		end,
+		python = 'python3 $file',
+		tex = 'mkdir -p build && pdflatex -output-directory=build -output-format=PDF $file'
 	},
 })

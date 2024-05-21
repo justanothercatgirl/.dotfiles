@@ -14,6 +14,7 @@ alias psiphon="psiphon-console-client"
 alias cppreference="microsoft-edge-dev /usr/share/doc/cppreference/en/cpp.html"
 alias lan="/home/main/zerotierconnect.sh"
 alias python=/home/main/coding/py/venv/bin/python3
+alias pdf=mupdf
 
 # shell options
 shopt -s autocd

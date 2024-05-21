@@ -4,7 +4,7 @@
 plugins = {
 	{ "folke/lazy.nvim" },				-- plugin manager
 
-	{ "nvim-lua/popup.nvim" },			-- some functions for other plugins
+	{ "nvim-lua/popup.nvim" },			-- some functions for other plugin
 	{ "nvim-lua/plenary.nvim" },			-- some functions for other plugins
 	{ "folke/which-key.nvim" },			-- pretty self-descriptive name
 
@@ -13,6 +13,12 @@ plugins = {
 	{ "folke/tokyonight.nvim" },			-- colorschemes
 
 
+	{ 
+		"smoka7/multicursors.nvim", 
+		event = "VeryLazy",
+		dependencies = { 'smoka7/hydra.nvim' },
+		cmd = { 'MCstart', 'MCvisual', 'MCclear', 'MCpattern', 'MCvisualPattern', 'MCunderCursor' },
+	},
 	{ "tpope/vim-commentary" },			-- gc & gcc for commenting
 	{ "preservim/nerdtree" },			-- file explorer
 	{ 
@@ -100,12 +106,18 @@ plugins = {
 		end,
 	},
 	{
-		'akinsho/bufferline.nvim',		-- tab & buffer line
+		"akinsho/bufferline.nvim",		-- tab & buffer line
 		version = "*", 
 		-- dependencies = 'nvim-tree/nvim-web-devicons'
 		-- for more details on how to configure this plugin in details please see `:h bufferline-configuration`
 	},
 	--{ "lvimuser/lsp-inlayhints.nvim" }		-- saved for the better times
+	
+	-- DEBUGGER CONFIGURATION
+	{
+		"mfussenegger/nvim-dap",			-- the DAP itself
+		event = { "InsertEnter" },
+	},
 
 }
 
@@ -140,3 +152,5 @@ require('blame').setup{
 	date_format = "%H:%M:%S %Y-%m-%d",
 	merge_consecutive = true,
 }
+
+require'multicursors'.setup {}
