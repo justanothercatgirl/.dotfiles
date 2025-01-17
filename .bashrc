@@ -1,5 +1,6 @@
 
 source /etc/profile
+source /etc/environment
 source "$HOME/.cursed_bash.sh"
 source /usr/share/git/git-prompt.sh
 source /usr/share/doc/pkgfile/command-not-found.bash
@@ -8,6 +9,7 @@ eval "$(zoxide init --cmd cd bash)"
 
 # application shortcuts
 alias ls="ls --color"
+alias cat=lolcat
 alias dl="~/.local/bin/download"
 alias qmake="/usr/lib/qt6/bin/qmake"
 alias psiphon="psiphon-console-client"
@@ -15,6 +17,10 @@ alias cppreference="microsoft-edge-dev /usr/share/doc/cppreference/en/cpp.html"
 alias lan="/home/main/zerotierconnect.sh"
 alias python=/home/main/coding/py/venv/bin/python3
 alias pdf=mupdf
+alias config='/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
+alias siskictl=systemctl
+alias boobs=systemctl
+alias tmux="tmux -f ~/.config/tmux.conf"
 
 # shell options
 shopt -s autocd

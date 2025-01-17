@@ -7,5 +7,4 @@ require "user.lspinit"
 require "user.treesitter"
 require "user.coderunner"
 require "user.debugger"
--- autocmd to load lsp seems to break it
 

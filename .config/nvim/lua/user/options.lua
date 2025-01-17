@@ -23,6 +23,7 @@ local options = {
 	expandtab = false, -- !!!!!!!!!
 	cursorline = false,
 	number = true,
+	relativenumber = true, 
 	wrap = false,
 	-- splitting
 	splitbelow = true,
@@ -31,6 +32,14 @@ local options = {
 	completeopt = { 'menuone', 'noselect', 'noinsert' },
 	-- treesitter
 	foldlevel = 3,
+	spell= true,
+	spelllang="en_gb,ru_yo",
+	mousemodel="popup",
+	spellsuggest = "best,5",
+	undofile = true,
+	undodir = "/home/main/.vim/undo",
+	-- list = true,
+	-- listchars = "space:*,tab:--"
 }
 
 for key, val in pairs(options) do
