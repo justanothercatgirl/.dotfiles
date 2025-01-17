@@ -24,7 +24,6 @@ plugins = {
 	{ 
 		"windwp/nvim-autopairs",
 		event = { "InsertEnter" },		-- automatically pair brackets and quotes
-
 	},
 	{ 
 		"tpope/vim-surround",			-- replace quotes e.t.c
@@ -46,7 +45,7 @@ plugins = {
 	{ "simrat39/rust-tools.nvim" },			-- no commments
 	
 
-	-- { "hrsh7th/vim-vsnip" },			-- snippet engine
+	{ "hrsh7th/vim-vsnip" },			-- snippet engine
 	{
 		"L3MON4D3/LuaSnip",			-- better snippet engine
 		event = { "InsertEnter" },
@@ -111,7 +110,7 @@ plugins = {
 		-- dependencies = 'nvim-tree/nvim-web-devicons'
 		-- for more details on how to configure this plugin in details please see `:h bufferline-configuration`
 	},
-	--{ "lvimuser/lsp-inlayhints.nvim" }		-- saved for the better times
+	-- { "lvimuser/lsp-inlayhints.nvim" }		-- saved for the better times
 	
 	-- DEBUGGER CONFIGURATION
 	{

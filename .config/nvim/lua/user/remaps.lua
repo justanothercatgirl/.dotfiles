@@ -99,6 +99,21 @@ lmap("n", "d]", vim.diagnostic.goto_next)
 map("n", "<F5>", ":RunCode<CR>", opt)
 map("n", "<F2>", ":echo 'time: ' . strftime('%c')<CR>", opt)
 
+lmap("n", "<F8>", function()
+	if (global_inde == nil) then
+		global_inde = vim.opt.indentexpr:get()
+	end
+	inde = vim.opt.indentexpr:get()
+	if inde ~= "" then
+		vim.opt.indentexpr = ""
+		print"indentation disabled"
+	else
+		vim.opt.indentexpr = global_inde
+		print"indentation enabled"
+	end
+	vim.cmd("set si! cin! ai!")
+end)
+
 -- language server remaps
 -- enable only after attaching language server to buffer 
 vim.api.nvim_create_autocmd('LspAttach', {
